@@ -1,0 +1,21 @@
+# Use uma imagem base apropriada
+FROM python:3.8-slim
+RUN apt-get update && apt-get install -y curl
+
+# Defina o diretório de trabalho dentro do contêiner
+WORKDIR /app/API_adobe
+
+# Copie todo o diretório API_adobe para o contêiner
+COPY . /app/API_adobe
+
+# Instale as dependências listadas no requirements.txt
+RUN pip install -r requirements.txt
+
+# Execute o comando curl para obter o token de acesso e defina as variáveis de ambiente
+RUN curl -X POST 'https://ims-na1.adobelogin.com/ims/token/v3' -H 'Content-Type: application/x-www-form-urlencoded' -d 'grant_type=client_credentials&client_id=08f35b1008af4a8091ccb4c55dc44c30&client_secret=p8e-KSWjsdJ139KfBDr-Jq0xVzs15iiN2bLN&scope=openid,AdobeID,DCAPI'
+
+ENV PDF_SERVICES_CLIENT_ID=08f35b1008af4a8091ccb4c55dc44c30
+ENV PDF_SERVICES_CLIENT_SECRET=p8e-KSWjsdJ139KfBDr-Jq0xVzs15iiN2bLN.eyJpZCI6IjE3MDE1NTAxMDMyMjVfZDljNTZmYTctNWY5NC00ZDFlLWIxNGYtZDM5ZDY4OTExZWE3X3VlMSIsIm9yZyI6IjIwNEUwMzk2NjUzNkQwRjcwQTQ5NUY5MUBBZG9iZU9yZyIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJjbGllbnRfaWQiOiIwOGYzNWIxMDA4YWY0YTgwOTFjY2I0YzU1ZGM0NGMzMCIsInVzZXJfaWQiOiIxRjgxNkNBRjY1MzZEMTExMEE0OTVFNjVAdGVjaGFjY3QuYWRvYmUuY29tIiwiYXMiOiJpbXMtbmExIiwiYWFfaWQiOiIxRjgxNkNBRjY1MzZEMTExMEE0OTVFNjVAdGVjaGFjY3QuYWRvYmUuY29tIiwiY3RwIjozLCJtb2kiOiI3ZDc3MzdkYSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiRENBUEksb3BlbmlkLEFkb2JlSUQiLCJjcmVhdGVkX2F0IjoiMTcwMTU1MDEwMzIyNSJ9.U2h8cHZyFF3TTvysMycnBSzKmijzwQ972IDDDB9kaw4H8UNmDaldTaWd7-ZWPxthGzwl8NW5cV0O86o55nIJjqASG0wQGYZzWlKAa5mhGJoWuiUxXzLaUbI-PK2tHoB9ukqAy9gvyy62zfSHp8KH9Lj2D9Vg6QAV-F3F7ocsNH-qF5ruCpnv32fLfXtOyA1Dlf035QOr3VA6Fp24rsbsScYlR1SvFBtqkzCsPc5ymvkHZZiIp1UrxjNYEHgg_QKZUe_9K1mXgQ5R91qhkmdhv8V22H5VV864-NH8E6WN7HQiBVmXKhPxmuwcm8QMbMqMEMKuTpq4TM7hgPjcz9NeFg
+
+# Execute o script Python desejado (comando de exemplo, ajuste conforme suas necessidades)
+CMD ["python", "src/extractpdf/extract_txt_from_pdf.py"]
