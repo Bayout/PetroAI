@@ -1,0 +1,58 @@
+/* Reset some basic elements */
+body, h1, h2, p, ul, li, a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+/* Body and Font Styles */
+body {
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    background-color: #add8e6; /* Light Blue */
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    background: #004d66; /* Petroleum Blue */
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header nav ul li {
+    margin: 0 20px;
+}
+
+header nav ul li a {
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+/* Sections */
+section {
+    padding: 20px;
+    margin: 20px 0;
+}
+
+#contato a {
+    color: #007bff; /* Light Blue for links */
+}
+
+/* Footer */
+footer {
+    background: #004d66; /* Petroleum Blue */
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+}
